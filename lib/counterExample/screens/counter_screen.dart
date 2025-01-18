@@ -16,6 +16,7 @@ class _SingleProviderCounterScreenState
     extends State<SingleProviderCounterScreen> {
   @override
   Widget build(BuildContext context) {
+    // make listen false here, if you want to update a specific widget, not the full build method
     final countProvider = Provider.of<CounterProvider>(context, listen: false);
     log('test');
 

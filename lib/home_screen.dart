@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notes/counterExample/screens/counter_screen.dart';
+import 'package:flutter_notes/counterExample/screens/timer_example.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,8 +23,24 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             // We have two types of provider:
             // 1. Single provider: Counter example
-            singleProvider(context),
-            const SizedBox(height: 20),
+            button(
+                context: context,
+                text: 'Single Provider: Counter example',
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const SingleProviderCounterScreen()))),
+            const SizedBox(height: 10),
+            // 2. Single provider: Timer example
+            button(
+                context: context,
+                text: 'Single Provider: Timer Provider',
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const SingleProviderTimerScreen()))),
             // 2. Multi provider
             // ElevatedButton(
             //   style: ElevatedButton.styleFrom(
@@ -47,21 +64,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  ElevatedButton singleProvider(BuildContext context) {
+  ElevatedButton button({
+    required BuildContext context,
+    required String text,
+    required void Function()? onPressed,
+  }) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-        textStyle: const TextStyle(fontSize: 20),
+        textStyle: const TextStyle(fontSize: 12),
       ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SingleProviderCounterScreen(),
-          ),
-        );
-      },
-      child: const Text('Single Provider'),
+      onPressed: onPressed,
+      child: Text(text),
     );
   }
 }
