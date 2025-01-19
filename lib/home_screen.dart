@@ -22,42 +22,29 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // We have two types of provider:
-            // 1. Single provider: Counter example
-            button(
-                context: context,
-                text: 'Single Provider: Counter example',
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const SingleProviderCounterScreen()))),
-            const SizedBox(height: 10),
-            // 2. Single provider: Timer example
-            button(
-                context: context,
-                text: 'Single Provider: Timer Provider',
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const SingleProviderTimerScreen()))),
+            // 1. Single provider
             // 2. Multi provider
-            // ElevatedButton(
-            //   style: ElevatedButton.styleFrom(
-            //     padding:
-            //         const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-            //     textStyle: const TextStyle(fontSize: 20),
-            //   ),
-            //   onPressed: () {
-            //     // Navigator.push(
-            //     //   context,
-            //     //   MaterialPageRoute(
-            //     //     builder: (context) => const SecondScreen(),
-            //     //   ),
-            //     // );
-            //   },
-            //   child: const Text('Second Screen'),
-            // ),
+
+            //  Counter example
+            button(
+              context: context,
+              text: 'Counter example',
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const SingleProviderCounterScreen())),
+            ),
+            const SizedBox(height: 10),
+            // Timer example
+            button(
+              context: context,
+              text: 'Timer Provider',
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SingleProviderTimerScreen())),
+            ),
           ],
         ),
       ),

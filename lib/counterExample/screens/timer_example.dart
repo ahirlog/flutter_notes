@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_notes/counterExample/provider/counter_provider.dart';
+import 'package:flutter_notes/counterExample/provider/timer_provider.dart';
 import 'package:provider/provider.dart';
 
 class SingleProviderTimerScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class SingleProviderTimerScreen extends StatefulWidget {
 class _SingleProviderTimerScreenState extends State<SingleProviderTimerScreen> {
   @override
   void initState() {
-    final countProvider = Provider.of<CounterProvider>(context, listen: false);
+    final countProvider = Provider.of<TimerProvider>(context, listen: false);
     Timer.periodic(const Duration(seconds: 1), (timer) {
       countProvider.setCount();
     });
@@ -33,7 +33,7 @@ class _SingleProviderTimerScreenState extends State<SingleProviderTimerScreen> {
         title: const Text('Timer Screen'),
       ),
       body: Center(
-        child: Consumer<CounterProvider>(builder: (context, value, child) {
+        child: Consumer<TimerProvider>(builder: (context, value, child) {
           return Text(
             value.count.toString(),
             style: const TextStyle(
