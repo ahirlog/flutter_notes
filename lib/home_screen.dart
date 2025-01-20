@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notes/counterExample/screens/counter_screen.dart';
+import 'package:flutter_notes/counterExample/screens/list_of_items_screen.dart';
 import 'package:flutter_notes/counterExample/screens/timer_example.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -44,6 +45,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const SingleProviderTimerScreen())),
+            ),
+            const SizedBox(height: 10),
+            // Timer example
+            button(
+              context: context,
+              text: 'Favorite List Provider',
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LikeableListView())),
             ),
           ],
         ),
