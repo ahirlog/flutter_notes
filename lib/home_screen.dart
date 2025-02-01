@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_notes/counterExample/screens/counter_screen.dart';
 import 'package:flutter_notes/counterExample/screens/increment_decrement_screen.dart';
 import 'package:flutter_notes/counterExample/screens/list_of_items_screen.dart';
+import 'package:flutter_notes/counterExample/screens/stateless_as_stateful_screen.dart';
 import 'package:flutter_notes/counterExample/screens/timer_example.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -66,6 +67,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const IncrementDecrementScreen())),
+            ),
+            // Use stateless widget as stateful
+            button(
+              context: context,
+              text: 'Stateless widget as stateful',
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => StatelessAsStatefulScreen())),
             ),
           ],
         ),

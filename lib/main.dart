@@ -47,8 +47,9 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             appBarTheme: const AppBarTheme(backgroundColor: Colors.grey),
           ),
-          home: const ThemeScreen(),
-          // HomeScreen(),
+          home:
+          // const ThemeScreen(),
+          const HomeScreen(),
         );
       }),
     );
