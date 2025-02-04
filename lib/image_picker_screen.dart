@@ -15,7 +15,19 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
   File? _image;
   final picker = ImagePicker();
 
-  Future getImage() async {
+  Future getGalleryImage() async {
+    final pickerImage = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickerImage != null) {
+        _image = File(pickerImage.path);
+      } else {
+        print('No image selected');
+      }
+    });
+  }
+
+  Future getCameraImage() async {
     final pickerImage = await picker.pickImage(source: ImageSource.camera);
 
     setState(() {
@@ -49,9 +61,18 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                 padding: const EdgeInsets.all(20),
               ),
               onPressed: () {
-                getImage();
+                getCameraImage();
               },
-              child: const Text('Add image'),
+              child: const Text('Pick from camera'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(20),
+              ),
+              onPressed: () {
+                getGalleryImage();
+              },
+              child: const Text('Pick from gallery'),
             ),
           ],
         ),
