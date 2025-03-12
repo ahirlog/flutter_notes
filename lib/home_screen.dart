@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_notes/image_picker_screen.dart';
+import 'package:flutter_notes/video_picker_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,12 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
             //  Image picker
             button(
               context: context,
-              text: 'Image picker',
+              text: 'Video picker',
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                      const ImagePickerScreen())),
+                      const VideoPickerScreen())),
             ),
           ],
         ),
