@@ -1,11 +1,13 @@
-import 'package:firebase_core/firebase_core.dart';
+// lib/main.dart
+
 import 'package:flutter/material.dart';
-import 'package:flutter_notes/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'home_screen.dart';
+import 'signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(const MyApp());
 }
 
@@ -14,9 +16,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: HomeScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/signup',
+      routes: {
+        '/signup': (context) => const SignupScreen(),
+        '/home': (context) => const HomeScreen(),
+      },
     );
   }
 }
