@@ -1,38 +1,36 @@
-// lib/signup_screen.dart
+// lib/login_screen.dart
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<void> _signUp() async {
+  Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
+            .signInWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
-        // Navigate to Home Screen on successful signup
+        // Navigate to Home Screen on successful login
         Navigator.pushReplacementNamed(context, '/home');
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
         }
-      } catch (e) {
-        print(e);
       }
     }
   }
@@ -41,7 +39,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Login'),
       ),
       body: Center(
         child: Padding(
@@ -68,14 +66,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _signUp,
-                  child: const Text('Sign Up'),
+                  onPressed: _login,
+                  child: const Text('Login'),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pushNamed(context, '/signup');
                   },
-                  child: const Text('Already have an account? Login'),
+                  child: const Text('Don\'t have an account? Sign Up'),
                 ),
               ],
             ),
