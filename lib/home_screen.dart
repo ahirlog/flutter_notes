@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'draggable_widget_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +13,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const DraggableWidgetPage()),
+            );
+          },
+          child: const Text('Draggable Widget Example'),
+        ),
+      ),
     );
   }
 }
