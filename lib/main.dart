@@ -6,6 +6,7 @@ import 'package:flutter_notes/counterExample/provider/theme_provider.dart';
 import 'package:flutter_notes/counterExample/provider/timer_provider.dart';
 import 'package:flutter_notes/counterExample/screens/theme_screen.dart';
 import 'package:flutter_notes/home_screen.dart';
+import 'package:flutter_notes/models/cart_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -33,10 +34,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LikeableListProvider()),
         ChangeNotifierProvider(create: (_) => IncrementDecrementProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => Cart()),
       ],
       child: Builder(builder: (context) {
         final themeChanger = Provider.of<ThemeProvider>(context);
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Flutter Notes',
           themeMode: themeChanger.themeMode,
           theme: ThemeData(

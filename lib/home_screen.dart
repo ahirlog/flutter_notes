@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_notes/counterExample/screens/counter_screen.dart';
 import 'package:flutter_notes/counterExample/screens/increment_decrement_screen.dart';
 import 'package:flutter_notes/counterExample/screens/list_of_items_screen.dart';
+import 'package:flutter_notes/counterExample/screens/product_list_screen.dart';
 import 'package:flutter_notes/counterExample/screens/stateless_as_stateful_screen.dart';
 import 'package:flutter_notes/counterExample/screens/timer_example.dart';
 
@@ -76,6 +77,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => StatelessAsStatefulScreen())),
+            ),
+            // Add to cart example
+            button(
+              context: context,
+              text: 'Shopping Cart Example',
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProductListScreen())),
             ),
           ],
         ),
