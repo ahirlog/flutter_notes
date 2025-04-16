@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               setState(() {
                                 dbHelper!.delete(snapshot.data![index].id!);
                                 notesList = dbHelper!.getNotesList();
-                                snapshot.data!.remove(snapshot.data![index].id!);
+                                snapshot.data!.removeAt(index);
                               });
                             },
                             key: ValueKey<int>(snapshot.data![index].id!),
