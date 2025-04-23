@@ -5,14 +5,14 @@ import 'package:flutter_notes/utils/utils.dart';
 import 'package:flutter_notes/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupViewState extends State<SignupView> {
   final _obSecurePassword = ValueNotifier<bool>(true);
 
   final _emailController = TextEditingController();
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }),
             SizedBox(height: height * .085),
             RoundButton(
-                title: 'Login',
+                title: 'Signup',
                 loading: authViewModel.loading,
                 onPress: () {
                   if (_emailController.text.isEmpty) {
@@ -104,9 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: height * .02),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, RoutesName.signUp);
+                Navigator.pushNamed(context, RoutesName.login);
               },
-              child: const Text("Don't have an account? Sign up"),
+              child: const Text("Already have an account? Login"),
             ),
           ],
         ),

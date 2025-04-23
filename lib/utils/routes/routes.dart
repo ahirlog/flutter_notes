@@ -3,15 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_notes/utils/routes/routes_name.dart';
 import 'package:flutter_notes/view/home_screen.dart';
 import 'package:flutter_notes/view/login_screen.dart';
+import 'package:flutter_notes/view/signup_view.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutesName.home:
-        return MaterialPageRoute(builder: (BuildContext context) => const HomeScreen());
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const HomeScreen());
 
       case RoutesName.login:
-        return MaterialPageRoute(builder: (BuildContext context) => const LoginScreen());
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const LoginScreen());
+      case RoutesName.signUp:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const SignupView());
 
       default:
         return MaterialPageRoute(builder: (_) {
