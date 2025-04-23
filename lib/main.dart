@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_notes/home_screen.dart';
+import 'package:flutter_notes/utils/routes/routes.dart';
+import 'package:flutter_notes/utils/routes/routes_name.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: HomeScreen(),
+      initialRoute: RoutesName.login,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
