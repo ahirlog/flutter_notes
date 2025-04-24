@@ -4,6 +4,7 @@ import 'package:flutter_notes/utils/routes/routes_name.dart';
 import 'package:flutter_notes/view/home_screen.dart';
 import 'package:flutter_notes/view/login_screen.dart';
 import 'package:flutter_notes/view/signup_view.dart';
+import 'package:flutter_notes/view/splash_view.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -18,6 +19,9 @@ class Routes {
       case RoutesName.signUp:
         return MaterialPageRoute(
             builder: (BuildContext context) => const SignupView());
+      case RoutesName.splash:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const SplashView());
 
       default:
         return MaterialPageRoute(builder: (_) {
