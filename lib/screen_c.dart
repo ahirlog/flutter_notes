@@ -21,7 +21,9 @@ class _ScreenCState extends State<ScreenC> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: const Text('Click Me'),
             ),
           ],

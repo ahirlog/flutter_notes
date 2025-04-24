@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_notes/screen_c.dart';
 
 class ScreenB extends StatefulWidget {
   const ScreenB({super.key});
@@ -21,7 +22,10 @@ class _ScreenBState extends State<ScreenB> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ScreenC()));
+              },
               child: const Text('Click Me'),
             ),
           ],
