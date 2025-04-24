@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_notes/routes_name.dart';
 import 'package:flutter_notes/screen_c.dart';
 
 class ScreenB extends StatefulWidget {
@@ -23,8 +24,9 @@ class _ScreenBState extends State<ScreenB> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ScreenC()));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => const ScreenC()));
+                Navigator.pushNamed(context, RouteName.screenC);
               },
               child: const Text('Click Me'),
             ),
