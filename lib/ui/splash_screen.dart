@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_notes/firebase_services/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,21 +12,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SplashServices splashServices = SplashServices();
+
   @override
   void initState() {
+    splashServices.isLoggedIn(context);
     super.initState();
-    _checkAuthStatus();
-  }
-
-  Future<void> _checkAuthStatus() async {
-    await Future.delayed(const Duration(seconds: 3)); // Simulate a delay
-    if (FirebaseAuth.instance.currentUser != null) {
-      // User is logged in, navigate to home screen
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      // User is not logged in, navigate to login screen
-      Navigator.pushReplacementNamed(context, '/login');
-    }
   }
 
   @override

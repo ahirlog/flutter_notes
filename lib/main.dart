@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_notes/forgot_password_screen.dart';
-import 'package:flutter_notes/login_screen.dart';
-import 'package:flutter_notes/splash_screen.dart';
+import 'package:flutter_notes/ui/auth/login_screen.dart';
+import 'package:flutter_notes/ui/splash_screen.dart';
 import 'home_screen.dart';
 import 'signup_screen.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       initialRoute: '/splash',
       routes: {
