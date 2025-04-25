@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_notes/utils/utils.dart';
 import 'package:flutter_notes/widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,29 +14,39 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // Future<void> _login() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     try {
-  //       UserCredential userCredential = await FirebaseAuth.instance
-  //           .signInWithEmailAndPassword(
-  //         email: _emailController.text,
-  //         password: _passwordController.text,
-  //       );
-  //       // Navigate to Home Screen on successful login
-  //       Navigator.pushReplacementNamed(context, '/home');
-  //     } on FirebaseAuthException catch (e) {
-  //       if (e.code == 'user-not-found') {
-  //         print('No user found for that email.');
-  //       } else if (e.code == 'wrong-password') {
-  //         print('Wrong password provided for that user.');
-  //       }
-  //     }
-  //   }
-  // }
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        setState(() {
+          _loading = true;
+        });
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        // Navigate to Home Screen on successful login
+        Navigator.pushReplacementNamed(context, '/home');
+        setState(() {
+          loading = false;
+        });
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          loading = false;
+        });
+        if (e.code == 'user-not-found') {
+          Utils().toastMessage('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          Utils().toastMessage('Wrong password provided for that user.');
+        }
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -91,8 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 50),
                   RoundButton(
                     title: 'Login',
-                    onTap: () {},
-                    // _login,
+                    onTap: _login,
                   ),
                   const SizedBox(height: 20),
                   Row(

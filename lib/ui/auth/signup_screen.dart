@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_notes/utils/utils.dart';
 import 'package:flutter_notes/widgets/round_button.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -30,14 +31,17 @@ class _SignupScreenState extends State<SignupScreen> {
         );
         // Navigate to Home Screen on successful signup
         Navigator.pushReplacementNamed(context, '/home');
+        setState(() {
+          _loading = false;
+        });
       } on FirebaseAuthException catch (e) {
         setState(() {
           _loading = false;
         });
         if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
+          Utils().toastMessage('The password provided is too weak.');
         } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+          Utils().toastMessage('The account already exists for that email.');
         }
       } catch (e) {
         setState(() {
