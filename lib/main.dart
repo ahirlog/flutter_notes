@@ -6,7 +6,7 @@ import 'package:flutter_notes/forgot_password_screen.dart';
 import 'package:flutter_notes/ui/auth/login_screen.dart';
 import 'package:flutter_notes/ui/splash_screen.dart';
 import 'home_screen.dart';
-import 'signup_screen.dart';
+import 'ui/auth/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

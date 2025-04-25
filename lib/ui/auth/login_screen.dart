@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_notes/widgets/round_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,59 +46,76 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                    prefixIcon: Icon(Icons.alternate_email),
+    return WillPopScope(
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Login'),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: 'Email',
+                      prefixIcon: Icon(Icons.alternate_email),
+                    ),
+                    validator: (value) {
+                      return value!.isEmpty ? 'Enter email' : null;
+                    },
                   ),
-                  validator: (value) {
-                    return value!.isEmpty ? 'Enter email' : null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(hintText: 'Password'),
-                  obscureText: true,
-                  validator: (value) {
-                    return value!.isEmpty ? 'Enter password' : null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                RoundButton(
-                  title: 'Login',
-                  onTap: () {},
-                  // _login,
-                ),
-                // TextButton(
-                //   onPressed: () {
-                //     Navigator.pushNamed(context, '/signup');
-                //   },
-                //   child: const Text('Don\'t have an account? Sign Up'),
-                // ),
-                // TextButton(
-                //   onPressed: () {
-                //     Navigator.pushNamed(context, '/forgot-password');
-                //   },
-                //   child: const Text('Forgot Password?'),
-                // ),
-              ],
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _passwordController,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                      hintText: 'Password',
+                      prefixIcon: Icon(Icons.lock_open),
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      return value!.isEmpty ? 'Enter password' : null;
+                    },
+                  ),
+                  const SizedBox(height: 50),
+                  RoundButton(
+                    title: 'Login',
+                    onTap: () {},
+                    // _login,
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Don\'t have an account?'),
+                      const SizedBox(width: 5),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/signup');
+                        },
+                        child: const Text('Sign Up'),
+                      ),
+                    ],
+                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Navigator.pushNamed(context, '/forgot-password');
+                  //   },
+                  //   child: const Text('Forgot Password?'),
+                  // ),
+                ],
+              ),
             ),
           ),
         ),
