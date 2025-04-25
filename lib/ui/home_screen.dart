@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_notes/utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,10 +13,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Future<void> _logout() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacementNamed(context, '/login');
+    await FirebaseAuth.instance.signOut().then((_) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }).onError((error, stackTrace) {
+      Utils().toastMessage(error.toString());
+    });
   }
- 
 
   @override
   Widget build(BuildContext context) {

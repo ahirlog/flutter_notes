@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       try {
         setState(() {
-          _loading = true;
+          loading = true;
         });
         UserCredential userCredential =
             await FirebaseAuth.instance.signInWithEmailAndPassword(
