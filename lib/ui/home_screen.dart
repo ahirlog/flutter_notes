@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_notes/ui/add_post_screen.dart';
 import 'package:flutter_notes/utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,13 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/post');
-          },
-          child: const Text('Create Post'),
-        ),
+      body: const Center(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddPostScreen()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
