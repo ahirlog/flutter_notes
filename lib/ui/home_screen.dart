@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ref = FirebaseDatabase.instance.ref('Post');
+  final searchFilter = TextEditingController();
 
   Future<void> _logout() async {
     await FirebaseAuth.instance.signOut().then((_) {
@@ -47,46 +48,74 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          // Search option
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextFormField(
+              controller: searchFilter,
+              decoration: const InputDecoration(
+                hintText: 'Search',
+                border: OutlineInputBorder(),
+              ), // InputDecoration
+              onChanged: (String value) {
+                setState(() {});
+              },
+            ), // TextFormField
+          ), // Padding
           // fetch using FirebaseAnimatedList widget
           Expanded(
             child: FirebaseAnimatedList(
               query: ref,
               defaultChild: const Text('Loading'),
               itemBuilder: (context, snapshot, animation, index) {
-                return ListTile(
-                  title: Text(snapshot.child('title').value.toString()),
-                  subtitle: Text(snapshot.child('id').value.toString()),
-                );
-              },
-            ),
-          ),
-          // fetch using Stream builder
-          Expanded(
-            child: StreamBuilder(
-              stream: ref.onValue,
-              builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                } else {
-                  Map<dynamic, dynamic> map =
-                      snapshot.data!.snapshot.value as dynamic;
-                  List<dynamic> list = [];
-                  list.clear();
-                  list = map.values.toList();
+                final title = snapshot.child('title').value.toString();
 
-                  return ListView.builder(
-                    itemCount: snapshot.data!.snapshot.children.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(list[index]['title']),
-                        subtitle: Text(list[index]['id']),
-                      );
-                    },
+                if (searchFilter.text.isEmpty) {
+                  return ListTile(
+                    title: Text(snapshot.child('title').value.toString()),
+                    subtitle: Text(snapshot.child('id').value.toString()),
                   );
+                } else if (title
+                    .toLowerCase()
+                    .contains(searchFilter.text.toLowerCase())) {
+                  return ListTile(
+                    title: Text(snapshot.child('title').value.toString()),
+                    subtitle: Text(snapshot.child('id').value.toString()),
+                  );
+                } else {
+                  return Container();
                 }
               },
             ),
           ),
+          // fetch using Stream builder
+          // Expanded(
+          //   child: StreamBuilder(
+          //     stream: ref.onValue,
+          //     builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
+          //       if (!snapshot.hasData) {
+          //         return const CircularProgressIndicator();
+          //       } else {
+          //         Map<dynamic, dynamic> map =
+          //             snapshot.data!.snapshot.value as dynamic;
+          //         List<dynamic> list = [];
+          //         list.clear();
+          //         list = map.values.toList();
+          //
+          //         return ListView.builder(
+          //           itemCount: snapshot.data!.snapshot.children.length,
+          //           itemBuilder: (context, index) {
+          //             return ListTile(
+          //               title: Text(list[index]['title']),
+          //               subtitle: Text(list[index]['id']),
+          //             );
+          //           },
+          //         );
+          //       }
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
