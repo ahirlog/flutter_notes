@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ref = FirebaseDatabase.instance.ref('Post');
   final searchFilter = TextEditingController();
+  final editController = TextEditingController();
 
   Future<void> _logout() async {
     await FirebaseAuth.instance.signOut().then((_) {
@@ -75,6 +76,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   return ListTile(
                     title: Text(snapshot.child('title').value.toString()),
                     subtitle: Text(snapshot.child('id').value.toString()),
+                    trailing: PopupMenuButton(
+                      icon: const Icon(Icons.more_vert),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          value: 1,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pop(context);
+                              ref
+                                  .child(snapshot.child('id').value.toString())
+                                  .remove();
+                            },
+                            leading: const Icon(Icons.edit),
+                            title: const Text('Edit'),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 1,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pop(context);
+                              showMyDialog(
+                                  title, snapshot.child('id').value.toString());
+                            },
+                            leading: const Icon(Icons.delete_outline),
+                            title: const Text('Delete'),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 } else if (title
                     .toLowerCase()
@@ -118,6 +149,46 @@ class _HomeScreenState extends State<HomeScreen> {
           // ),
         ],
       ),
+    );
+  }
+
+  Future<void> showMyDialog(String title, String id) async {
+    editController.text = title;
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Update'),
+          content: TextField(
+            controller: editController,
+            decoration: const InputDecoration(
+              hintText: 'Edit',
+            ), // InputDecoration
+          ), // Container
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ), // TextButton
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                ref.child(id).update({
+                  'title': editController.text.toLowerCase(),
+                }).then((value) {
+                  Utils().toastMessage('Post Update');
+                }).onError((error, stackTrace) {
+                  Utils().toastMessage(error.toString());
+                });
+              },
+              child: const Text('Update'),
+            ), // TextButton
+          ],
+        ); // AlertDialog
+      },
     );
   }
 }
