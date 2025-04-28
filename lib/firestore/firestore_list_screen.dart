@@ -19,6 +19,7 @@ class FireStoreListScreen extends StatefulWidget {
 class _FireStoreListScreenState extends State<FireStoreListScreen> {
   final editController = TextEditingController();
   final fireStore = FirebaseFirestore.instance.collection('users').snapshots();
+  final ref = FirebaseFirestore.instance.collection('users');
 
   Future<void> _logout() async {
     await FirebaseAuth.instance.signOut().then((_) {
@@ -69,6 +70,22 @@ class _FireStoreListScreenState extends State<FireStoreListScreen> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onTap: () {
+                        // For updating the data
+                        ref
+                            .doc(snapshot.data!.docs[index]['id'].toString())
+                            .update({'title': 'i am not good in flutter'}).then(
+                                (value) {
+                          Utils().toastMessage('updated');
+                        }).onError((error, stackTrace) {
+                          Utils().toastMessage(error.toString());
+                        });
+
+                        // For deleting the data
+                        // ref
+                        //     .doc(snapshot.data!.docs[index]['id'].toString())
+                        //     .delete();
+                      },
                       title:
                           Text(snapshot.data!.docs[index]['title'].toString()),
                     );
