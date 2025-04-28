@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_notes/forgot_password_screen.dart';
+import 'package:flutter_notes/ui/auth/forgot_password_screen.dart';
 import 'package:flutter_notes/ui/auth/login_screen.dart';
 import 'package:flutter_notes/ui/splash_screen.dart';
 import 'ui/home_screen.dart';

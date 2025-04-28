@@ -105,6 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     title: 'Login',
                     onTap: _login,
                   ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/forgot-password');
+                    },
+                    child: const Text('Forgot Password?'),
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -141,12 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     Navigator.pushNamed(context, '/forgot-password');
-                  //   },
-                  //   child: const Text('Forgot Password?'),
-                  // ),
                 ],
               ),
             ),
