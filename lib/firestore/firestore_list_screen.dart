@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -17,6 +18,7 @@ class FireStoreListScreen extends StatefulWidget {
 
 class _FireStoreListScreenState extends State<FireStoreListScreen> {
   final editController = TextEditingController();
+  final fireStore = FirebaseFirestore.instance.collection('users').snapshots();
 
   Future<void> _logout() async {
     await FirebaseAuth.instance.signOut().then((_) {
@@ -41,17 +43,40 @@ class _FireStoreListScreenState extends State<FireStoreListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddFireStoreData()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const AddFireStoreData()));
         },
         child: const Icon(Icons.add),
       ),
       body: Column(
         children: [
-          // fetch using FirebaseAnimatedList widget
-          Expanded(
-            child: ListView(),
-          ),
+          StreamBuilder<QuerySnapshot>(
+            stream: fireStore,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+
+              if (snapshot.hasError) {
+                return const Text('Some error');
+              }
+
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title:
+                          Text(snapshot.data!.docs[index]['title'].toString()),
+                    );
+                  },
+                ),
+              );
+            },
+          )
         ],
       ),
     );
@@ -81,7 +106,6 @@ class _FireStoreListScreenState extends State<FireStoreListScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-
               },
               child: const Text('Update'),
             ), // TextButton
