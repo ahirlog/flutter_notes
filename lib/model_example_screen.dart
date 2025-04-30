@@ -36,10 +36,30 @@ class _ModelExampleScreenState extends State<ModelExampleScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        data[index].title.toString(),
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Text(
+                            data[index].title.toString(),
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                          const Spacer(),
+                          InkWell(
+                            onTap: () {
+                              delete(data[index]);
+                            },
+                            child: const Icon(Icons.delete, color: Colors.red),
+                          ),
+                          const SizedBox(width: 15),
+                          InkWell(
+                              onTap: () {
+                                _editDialog(
+                                    data[index],
+                                    data[index].title.toString(),
+                                    data[index].description.toString());
+                              },
+                              child: const Icon(Icons.edit)),
+                        ],
                       ),
                       const SizedBox(height: 5),
                       Text(
@@ -60,6 +80,70 @@ class _ModelExampleScreenState extends State<ModelExampleScreen> {
         },
         child: const Icon(Icons.add),
       ),
+    );
+  }
+
+  void delete(NotesModel notesModel) async {
+    await notesModel.delete();
+  }
+
+  Future<void> _editDialog(
+      NotesModel notesModel, String title, String description) async {
+    titleController.text = title;
+    descriptionController.text = description;
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Add NOTES'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: titleController,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter title',
+                    border: OutlineInputBorder(),
+                  ), // InputDecoration
+                ),
+                // TextFormField
+                const SizedBox(height: 20),
+                TextFormField(
+                  maxLines: 5,
+                  controller: descriptionController,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter description',
+                    border: OutlineInputBorder(),
+                  ), // InputDecoration
+                ),
+                // TextFormField
+              ],
+            ), // ListView
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                notesModel.title = titleController.text.toString();
+                notesModel.description = descriptionController.text.toString();
+
+                notesModel.save();
+
+                titleController.clear();
+                descriptionController.clear();
+                Navigator.pop(context);
+              },
+              child: const Text('Edit'),
+            ),
+          ],
+        ); // AlertDialog
+      },
     );
   }
 
