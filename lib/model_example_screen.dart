@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notes/boxes/boxes.dart';
 import 'package:flutter_notes/model/notes_model.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ModelExampleScreen extends StatefulWidget {
   const ModelExampleScreen({super.key});
@@ -19,8 +21,38 @@ class _ModelExampleScreenState extends State<ModelExampleScreen> {
       appBar: AppBar(
         title: const Text('Model Hive Example'),
       ),
-      body: Column(
-        children: [],
+      body: ValueListenableBuilder<Box<NotesModel>>(
+        valueListenable: Boxes.getData().listenable(),
+        builder: (context, box, _) {
+          final data = box.values.toList().cast<NotesModel>();
+          return ListView.builder(
+            itemCount: box.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        data[index].title.toString(),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        data[index].description.toString(),
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ), // Column
+                ), // Padding
+              ); // Card
+            },
+          ); // ListView.builder
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -76,7 +108,7 @@ class _ModelExampleScreenState extends State<ModelExampleScreen> {
                 final box = Boxes.getData();
 
                 box.add(data);
-                data.save();
+                // data.save();
 
                 print(box);
                 titleController.clear();
