@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notes/home_screen.dart';
+import 'package:flutter_notes/languages.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
@@ -11,9 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
-      home: HomeScreen(),
+      locale: Locale('en', 'US'),
+      translations: Languages(),
+      fallbackLocale: const Locale('en', 'US'),
+      home: const HomeScreen(),
     );
   }
 }
