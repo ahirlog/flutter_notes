@@ -10,6 +10,18 @@ class AppException implements Exception {
   }
 }
 
+class InternetException extends AppException {
+  InternetException([String? message]) : super(message, 'No Internet Connection');
+}
+
+class RequestTimeOut extends AppException {
+  RequestTimeOut([String? message]) : super(message, 'Request Time out');
+}
+
+class ServerException extends AppException {
+  ServerException([String? message]) : super(message, 'Internal server error');
+}
+
 class FetchDataException extends AppException {
   FetchDataException([String? message])
       : super(message, 'Error During Communication');
