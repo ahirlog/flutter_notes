@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notes/res/getx_localization/languages.dart';
 import 'package:flutter_notes/utils/routes/routes.dart';
-import 'package:flutter_notes/utils/routes/routes_name.dart';
-import 'package:flutter_notes/view_model/auth_view_model.dart';
-import 'package:flutter_notes/view_model/user_view_model.dart';
 import 'package:get/get.dart';
 
 void main() {
