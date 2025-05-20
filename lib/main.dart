@@ -24,14 +24,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/signup': (context) => const SignupScreen(),
-        '/home': (context) => const HomeScreen(),
-        '/forgot-password': (context) => const ForgotPasswordScreen(),
-      },
+      // initialRoute: '/splash',
+      // routes: {
+      //   '/splash': (context) => const SplashScreen(),
+      //   '/login': (context) => const LoginScreen(),
+      //   '/signup': (context) => const SignupScreen(),
+      //   '/home': (context) => const HomeScreen(),
+      //   '/forgot-password': (context) => const ForgotPasswordScreen(),
+      // },
     );
   }
 }
