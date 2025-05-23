@@ -1,17 +1,22 @@
 // lib/main.dart
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_notes/forgot_password_screen.dart';
-import 'package:flutter_notes/ui/auth/login_screen.dart';
-import 'package:flutter_notes/ui/splash_screen.dart';
-import 'ui/home_screen.dart';
-import 'ui/auth/signup_screen.dart';
+import 'package:flutter_notes/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
+}
+
+// if we pass notification channel 1 or something then notification popup will show on the screen itself, no need to to see the notification from the notification bar
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print(message.notification!.title.toString());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,14 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      // initialRoute: '/splash',
-      // routes: {
-      //   '/splash': (context) => const SplashScreen(),
-      //   '/login': (context) => const LoginScreen(),
-      //   '/signup': (context) => const SignupScreen(),
-      //   '/home': (context) => const HomeScreen(),
-      //   '/forgot-password': (context) => const ForgotPasswordScreen(),
-      // },
+      home: const HomeScreen(),
     );
   }
 }
