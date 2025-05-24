@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_notes/message_screen.dart';
 
 // Foreground notifications
 class NotificationServices {
@@ -47,19 +49,24 @@ class NotificationServices {
     await _flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: (payload) {
-        // Handle notification tap action here
+        handleMessage(context, message);
       },
     );
   }
 
-  void firebaseInit() {
+  void firebaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((message) {
       if (kDebugMode) {
         print(message.notification!.title.toString());
         print(message.notification!.body.toString());
       }
 
-      showNotification(message);
+      if (Platform.isAndroid) {
+        initLocalNotifications(context, message);
+        showNotification(message);
+      } else {
+        showNotification(message);
+      }
     });
   }
 
@@ -111,5 +118,34 @@ class NotificationServices {
     messaging.onTokenRefresh.listen((event) {
       event.toString();
     });
+  }
+
+  Future<void> setupInteractMessage(BuildContext context) async {
+    // when app is terminated
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      handleMessage(context, initialMessage);
+    }
+
+    // when app is in background
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      handleMessage(context, event);
+    });
+  }
+
+  // when app in frontend then open that message screen
+  void handleMessage(BuildContext context, RemoteMessage message) {
+    if (message.data['type'] == 'msj') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MessageScreen(
+            id: message.data['id'],
+          ),
+        ),
+      );
+    }
   }
 }

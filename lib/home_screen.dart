@@ -14,7 +14,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     notificationServices.requestNotificationPermission();
-    // notificationServices.
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
 
     // No need to call all time
     // notificationServices.isTokenRefresh();
