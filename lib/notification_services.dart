@@ -61,10 +61,12 @@ class NotificationServices {
         print(message.notification!.body.toString());
       }
 
+      if(Platform.isIOS){
+        foregroundMessage();
+      }
+
       if (Platform.isAndroid) {
         initLocalNotifications(context, message);
-        showNotification(message);
-      } else {
         showNotification(message);
       }
     });
@@ -147,5 +149,14 @@ class NotificationServices {
         ),
       );
     }
+  }
+
+  Future foregroundMessage() async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
   }
 }
