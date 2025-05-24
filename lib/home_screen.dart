@@ -12,7 +12,32 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(),
+      body: Column(
+        children: [
+           Container(
+            height: 50,
+             width: double.infinity,
+             color: Colors.red,
+          ),
+          20.ph,
+          Container(
+            height: 50,
+            width: double.infinity,
+            color: Colors.red,
+          ),
+          20.ph,
+          Container(
+            height: 50,
+            width: double.infinity,
+            color: Colors.red,
+          ),
+        ],
+      ),
     );
   }
+}
+
+extension Padding on num {
+  SizedBox get ph => SizedBox(height:toDouble());
+  SizedBox get pw => SizedBox(width:toDouble());
 }
