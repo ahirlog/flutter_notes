@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/bloc/counter/counter_bloc.dart';
-import 'package:flutter_notes/ui/counter_screen.dart';
+import 'package:flutter_notes/ui/counter/counter_screen.dart';
 
 void main() {
   runApp(const MyApp());
