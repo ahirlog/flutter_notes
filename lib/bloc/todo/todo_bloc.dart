@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_notes/bloc/todo_event.dart';
-import 'package:flutter_notes/bloc/todo_state.dart';
+import 'package:flutter_notes/bloc/todo/todo_event.dart';
+import 'package:flutter_notes/bloc/todo/todo_state.dart';
 
 class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
   final List<String> todos = [];

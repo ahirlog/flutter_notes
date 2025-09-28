@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_notes/bloc/todo_bloc.dart';
-import 'package:flutter_notes/bloc/todo_event.dart';
-import 'package:flutter_notes/bloc/todo_state.dart';
+import 'package:flutter_notes/bloc/todo/todo_bloc.dart';
+import 'package:flutter_notes/bloc/todo/todo_event.dart';
+import 'package:flutter_notes/bloc/todo/todo_state.dart';
 
 class ToDoScreen extends StatefulWidget {
   const ToDoScreen({super.key});
