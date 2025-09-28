@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/Utils/image_picker_utils.dart';
 import 'package:flutter_notes/bloc/counter/counter_bloc.dart';
 import 'package:flutter_notes/bloc/image_picker/image_picker_bloc.dart';
+import 'package:flutter_notes/bloc/todo_bloc.dart';
 import 'package:flutter_notes/ui/counter/counter_screen.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (_) => CounterBloc()),
           BlocProvider(create: (_) => ImagePickerBloc(ImagePickerUtils())),
+          BlocProvider(create: (_) => ToDoBloc()),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
